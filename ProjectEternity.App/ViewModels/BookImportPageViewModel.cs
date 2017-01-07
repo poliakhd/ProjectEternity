@@ -26,7 +26,7 @@ namespace ProjectEternity.App.ViewModels
         #endregion
 
         public ImportType ImportType { get; set; }
-        public BindableCollection<Book> ImportedBooks { get; set; }
+        public BindableCollection<Book> ImportedBooks { get; set; } = new BindableCollection<Book>();
 
         public bool ImportingProgressVisibility
         {

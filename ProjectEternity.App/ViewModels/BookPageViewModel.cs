@@ -97,12 +97,15 @@ namespace ProjectEternity.App.ViewModels
         {
             if (_flip.Items != null && _flip.Items.Count == 0)
             {
-                var layout = CreateLayout();
-                AddParagraph(layout);
-                AddLines(layout);
-                AddPages(containerSize, layout);
+                if (_lines != null)
+                {
+                    var layout = CreateLayout();
+                    AddParagraph(layout);
+                    AddLines(layout);
+                    AddPages(containerSize, layout);
 
-                _lines = null;
+                    _lines = null;
+                }
             }
             else
             {
