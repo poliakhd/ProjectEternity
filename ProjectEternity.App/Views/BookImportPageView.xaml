@@ -1,0 +1,73 @@
+﻿<Page x:Class="ProjectEternity.App.Views.BookImportPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ProjectEternity.App.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:ProjectEternity.App.Models"
+      xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BoolToObjectConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+        <converters:BoolToObjectConverter x:Key="ReverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible"/>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ProgressRing Visibility="{Binding Path=ImportingProgressVisibility, Converter={StaticResource BoolToVisibilityConverter}}" IsActive="True" Height="100" Width="100"/>
+        <Grid Visibility="{Binding Path=ImportingProgressVisibility, Converter={StaticResource ReverseBoolToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                   Margin="15,15,0,0"
+                   VerticalAlignment="Center"
+                   FontSize="17"
+                   FontWeight="Bold"
+                   Foreground="Black"
+                   Text="IMPORTED BOOKS" />
+
+            <ListView x:Name="ImportedBookList"
+                  Grid.Row="1"
+                  Margin="5,10,5,10"
+                  ItemsSource="{Binding Path=ImportedBooks}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Book">
+                        <Grid Height="175">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Image HorizontalAlignment="Left" Source="{x:Bind Path=CoverImage}" />
+
+                            <Grid Grid.Column="1" Margin="5,0,5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="Black"
+                                       Text="{x:Bind Title}"
+                                       TextWrapping="Wrap" />
+                                <TextBlock Grid.Row="1"  FontSize="12"
+                                       Foreground="Black"
+                                       Text="{x:Bind Author}"
+                                       TextWrapping="Wrap" />
+
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="GoToLibrary" Grid.Row="2" Content="Back to library" HorizontalAlignment="Center" Margin="5"/>
+        </Grid>
+    </Grid>
+</Page>
